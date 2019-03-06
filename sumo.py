@@ -122,6 +122,7 @@ class StopWatch(Frame):
             self.startTime = time.time()+self.nextTime
             self.nextTime = self.startTime-time.time()
             self.UpdaterCoundown()
+            self.onRunning = 1
  
     def Exit(self):
         result = tkMessageBox.askquestion('Bangkok Robotics Challenge 2019', 'Are you sure you want to exit?', icon='warning')

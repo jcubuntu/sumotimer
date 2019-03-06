@@ -25,15 +25,17 @@ def Main():
     root.config(bg="black")
     Bottom = Frame(root, width=600, bg="black")
     Bottom.pack(side=BOTTOM)
-    Start =  Button(Bottom,  fg="black",text='Start', command=stopWatch.Start, width=10, height=0,bg="black")
+    Start =  Button(Bottom, text='Start', command=stopWatch.Start, width=15, height=5,fg="white", bg="black")
     Start.pack(side=LEFT)
-    Stop = Button(Bottom, text='Stop', command=stopWatch.Stop, width=10, height=0, bg="black")
+    Stop = Button(Bottom, text='Pause', command=stopWatch.Stop, width=15, height=5, fg="white", bg="black")
     Stop.pack(side=LEFT)
-    Reset = Button(Bottom, text='Reset', command=stopWatch.Reset, width=10, height=0, bg="black")
+    resume = Button(Bottom, text='Resume', command=stopWatch.Resume, width=15, height=5, fg="white", bg="black")
+    resume.pack(side=LEFT)
+    Reset = Button(Bottom, text='Reset', command=stopWatch.Reset, width=15, height=5, fg="white", bg="black")
     Reset.pack(side=LEFT)
-    Exit = Button(Bottom, text='Exit', command=stopWatch.Exit, width=10, height=0, bg="black")
+    Exit = Button(Bottom, text='Exit', command=stopWatch.Exit, width=15, height=5, fg="white", bg="black")
     Exit.pack(side=LEFT)
-    Title = Label(Top, text="Bangkok Robotics Challenge 2019", font=("arial", 40), fg="white", bg="black")
+    Title = Label(Top, text="BANGKOK ROBOTICS CHALLENGE 2019", font=("arial", 40), fg="white", bg="black")
     Title.pack()
     gamename = Label(Top, text="SUMO OPEN HARDWARE", font=("arial", 40), fg="white", bg="black")
     gamename.pack(fill=X)
@@ -56,14 +58,14 @@ class StopWatch(Frame):
  
 # Create the widget of the Stopwatch Timer
     def MakeWidget(self):                      
-        self.timeText = Label(self, textvariable=self.timestr, font=("times new roman",300), fg="green", bg="black")
+        self.timeText = Label(self, textvariable=self.timestr, font=("times new roman",220), fg="green", bg="black")
         self.SetTime(self.nextTime)
         self.timeText.pack(fill=X, expand=NO, pady=0, padx=0) 
         self.battleText = Label(self, text="BATTLE", font=("times new roman",60), fg="orange", bg="black")
         self.battleText.pack(fill=X, expand=NO, pady=0, padx=0)
         self.waitText = Label(self, text="WAIT START", font=("times new roman",60), fg="orange", bg="black")  
         self.waitText.pack(fill=X, expand=NO, pady=0, padx=0)  
-        self.timeOutText = Label(self, text="TIME OUT", font=("times new roman",80), fg="RED", bg="black")
+        self.timeOutText = Label(self, text="TIME UP", font=("times new roman",220), fg="RED", bg="black")
         self.timeOutText.pack(fill=X, expand=NO, pady=0, padx=0) 
         self.battleText.pack_forget()
         self.timeOutText.pack_forget()
@@ -81,26 +83,24 @@ class StopWatch(Frame):
                     self.SetTime(0)
                     self.onRunning = 0
                     self.battleTime = TRUE
-                    self.TimerStart = 60*2
+                    self.TimerStart = 120.1
                     self.waitText.pack_forget()
                     self.Start()
                 else :
                     self.SetTime(0)
                     self.battleText.pack_forget()
+                    self.timeText.pack_forget()
                     self.timeOutText.pack(fill=X, expand=NO, pady=0, padx=0)
-
-     
-# Set The Value of Time When Is Called    
+      
     def SetTime(self, nextElap):
         minutes = int(nextElap/60)
         seconds = int(nextElap - minutes*60.0)
-        miliSeconds = int((nextElap - minutes*60.0 - seconds)*100)
+        miliSeconds = int((nextElap - minutes*60.0 - seconds)*10)
         if not self.battleTime :                
-            self.timestr.set('%01d:%02d' % (seconds, miliSeconds))
+            self.timestr.set('%01d:%01d' % (seconds, miliSeconds))
         else :
-            self.timestr.set('%01d:%02d:%02d' % (minutes,seconds, miliSeconds))
- 
-# Start The Stopwatch Counting When Button Start Is Clicked        
+            self.timestr.set('%01d:%02d:%01d' % (minutes,seconds, miliSeconds))
+     
     def Start(self):                                                     
         if not self.onRunning:
             self.startTime = time.time()+self.TimerStart
@@ -112,18 +112,19 @@ class StopWatch(Frame):
             self.UpdaterCoundown()
             self.onRunning = 1 
            
- 
-# Stop The Stopwatch Counting When Button Stop Is Clicked
     def Stop(self):                                    
         if self.onRunning:
             self.after_cancel(self.timer)            
             self.nextTime = self.startTime - time.time()   
             self.SetTime(self.nextTime)
             self.onRunning = 0
+    def Resume(self):
+            self.startTime = time.time()+self.nextTime
+            self.nextTime = self.startTime-time.time()
+            self.UpdaterCoundown()
  
-# Close The Application When Exit Button Is Clicked
     def Exit(self):
-        result = tkMessageBox.askquestion('Sourcecodester', 'Are you sure you want to exit?', icon='warning')
+        result = tkMessageBox.askquestion('Bangkok Robotics Challenge 2019', 'Are you sure you want to exit?', icon='warning')
         if result == 'yes':
             root.destroy()
             exit()

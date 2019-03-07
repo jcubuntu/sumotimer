@@ -24,7 +24,7 @@ def Main():
     root.config(bg="black")
     gamename = Label(Top, text="SUMO LEGO", font=("arial", 40), fg="white", bg="black")
     gamename.pack(fill=X)
-    
+    root.bind('<s>',stopWatch.Start)
     Bottom = Frame(root, width=600, bg="black")
     Bottom.pack(side=BOTTOM)
     Start =  Button(Bottom, text='Start', command=stopWatch.Start, width=15, height=5,fg="white", bg="black")

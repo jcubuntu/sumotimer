@@ -98,7 +98,7 @@ class StopWatch(Frame):
     def Resume(self):
             self.startTime = time.time()
             self.nextTime = self.startTime-time.time()
-            self.UpdaterCoundown()
+            self.Updater()
             self.onRunning = 1
  
     def Exit(self):

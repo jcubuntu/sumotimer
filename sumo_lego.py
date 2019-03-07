@@ -6,7 +6,7 @@ import time
 def Main():
     global root
     root = Tk()
-    root.title("SUMO ROBOT (OPEN HARDWARE)")
+    root.title("BRC 2019 (Sumo LEGO)")
     width = 1024
     height = 768
     screen_width = root.winfo_screenwidth()
@@ -22,9 +22,9 @@ def Main():
     stopWatch.pack(side=TOP)
     
     root.config(bg="black")
-    gamename = Label(Top, text="SUMO OPEN HARDWARE", font=("arial", 40), fg="white", bg="black")
+    gamename = Label(Top, text="SUMO LEGO", font=("arial", 40), fg="white", bg="black")
     gamename.pack(fill=X)
-    root.bind('<f>',stopWatch.Start)
+    
     Bottom = Frame(root, width=600, bg="black")
     Bottom.pack(side=BOTTOM)
     Start =  Button(Bottom, text='Start', command=stopWatch.Start, width=15, height=5,fg="white", bg="black")

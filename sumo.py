@@ -14,15 +14,17 @@ def Main():
 
     x = (screen_width / 2) - (width / 2)
     y = (screen_height / 2) - (height / 2)
-    root.wm_attributes('-fullscreen','true')
-    root.geometry("%dx%d+%d+%d" % (width, height, x, y))
+    
     Top = Frame(root, width=800)
-
     Top.pack(side=TOP)
 
     stopWatch = StopWatch(root)
     stopWatch.pack(side=TOP)
+    
     root.config(bg="black")
+    gamename = Label(Top, text="SUMO OPEN HARDWARE", font=("arial", 40), fg="white", bg="black")
+    gamename.pack(fill=X)
+    root.bind('<f>',stopWatch.Start)
     Bottom = Frame(root, width=600, bg="black")
     Bottom.pack(side=BOTTOM)
     Start =  Button(Bottom, text='Start', command=stopWatch.Start, width=15, height=5,fg="white", bg="black")
@@ -37,10 +39,10 @@ def Main():
     Exit.pack(side=LEFT)
     Title = Label(Top, text="BANGKOK ROBOTICS CHALLENGE 2019", font=("arial", 40), fg="white", bg="black")
     Title.pack()
-    gamename = Label(Top, text="SUMO OPEN HARDWARE", font=("arial", 40), fg="white", bg="black")
-    gamename.pack(fill=X)
     
-    
+
+    root.wm_attributes('-fullscreen','true')
+    root.geometry("%dx%d+%d+%d" % (width, height, x, y))
     root.mainloop() 
     
 
@@ -101,7 +103,7 @@ class StopWatch(Frame):
         else :
             self.timestr.set('%01d:%02d:%01d' % (minutes,seconds, miliSeconds))
      
-    def Start(self):                                                     
+    def Start(self,event=""):                                                     
         if not self.onRunning:
             self.startTime = time.time()+self.TimerStart
             self.nextTime = self.startTime-time.time()

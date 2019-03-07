@@ -7,6 +7,7 @@ def Main():
     global root
     root = Tk()
     root.title("BRC 2019 (Sumo Open Hardware)")
+   
     width = 1024
     height = 768
     screen_width = root.winfo_screenwidth()
@@ -27,8 +28,8 @@ def Main():
     
     Bottom = Frame(root, width=600, bg="black")
     Bottom.pack(side=BOTTOM)
-    Start =  Button(Bottom, text='Start', command=stopWatch.Start, width=15, height=5,fg="white", bg="black")
-    Start.pack(side=LEFT)
+    #Start =  Button(Bottom, text='Start', command=stopWatch.Start, width=15, height=5,fg="white", bg="black")
+    #Start.pack(side=LEFT)
     Stop = Button(Bottom, text='Stop', command=stopWatch.Stop, width=15, height=5, fg="white", bg="black")
     Stop.pack(side=LEFT)
     Reset = Button(Bottom, text='Reset', command=stopWatch.Reset, width=15, height=5, fg="white", bg="black")
@@ -49,8 +50,8 @@ class StopWatch(Frame):
     def __init__(self, parent=None, **kw):        
         Frame.__init__(self, parent, kw)
         self.startTime = 0.0
-        self.TimerStart = 5.0        
-        self.nextTime = 5.0
+        self.TimerStart = 0.0        
+        self.nextTime = 0.0
         self.onRunning = 0
         self.battleTime = FALSE   
         self.timestr = StringVar()   
@@ -67,13 +68,13 @@ class StopWatch(Frame):
  
 # Continously Update The Time From Counting
     def Updater(self): 
-            self.nextTime = self.startTime-time.time()
+            self.nextTime = time.time-self.startTime()
             self.SetTime(self.nextTime)
-            if self.nextTime < 180;
-				self.timer = self.after(50, self.Updater)
+            if self.nextTime < 180 :
+                self.timer = self.after(50, self.Updater)
             else:
-				self.timeText.pack_forget()
-				self.timeOutText.pack(fill=X, expand=NO, pady=0, padx=0)
+                self.timeText.pack_forget()
+                self.timeOutText.pack(fill=X, expand=NO, pady=0, padx=0)
       
     def SetTime(self, nextElap):
         minutes = int(nextElap/60)
@@ -95,7 +96,7 @@ class StopWatch(Frame):
             self.SetTime(self.nextTime)
             self.onRunning = 0
     def Resume(self):
-            self.startTime = time.time()+self.nextTime
+            self.startTime = time.time()
             self.nextTime = self.startTime-time.time()
             self.UpdaterCoundown()
             self.onRunning = 1

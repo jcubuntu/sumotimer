@@ -22,7 +22,7 @@ def Main():
     stopWatch.pack(side=TOP)
     
     root.config(bg="black")
-    gamename = Label(Top, text="SUMO OPEN HARDWARE", font=("arial", 40), fg="white", bg="black")
+    gamename = Label(Top, text="", font=("arial", 40), fg="white", bg="black")
     gamename.pack(fill=X)
     
     Bottom = Frame(root, width=600, bg="black")
@@ -37,7 +37,7 @@ def Main():
     Reset.pack(side=LEFT)
     Exit = Button(Bottom, text='Exit', command=stopWatch.Exit, width=15, height=5, fg="white", bg="black")
     Exit.pack(side=LEFT)
-    Title = Label(Top, text="BANGKOK ROBOTICS CHALLENGE 2019", font=("arial", 40), fg="white", bg="black")
+    Title = Label(Top, text="Time Remain", font=("arial", 40), fg="white", bg="black")
     Title.pack()
     
 
@@ -85,7 +85,7 @@ class StopWatch(Frame):
                     self.SetTime(0)
                     self.onRunning = 0
                     self.battleTime = TRUE
-                    self.TimerStart = 120.1
+                    self.TimerStart = 15*60
                     self.waitText.pack_forget()
                     self.Start()
                 else :
